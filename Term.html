@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineMax · Terms of Service</title>
+  <!-- Font & Icons (consistent with cinematic style) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #03050a;
+      color: #e0e8f0;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* cinematic background glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 30% 40%, rgba(0, 180, 255, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 70%, rgba(0, 100, 200, 0.1) 0%, transparent 55%),
+                  repeating-linear-gradient(45deg, rgba(0,40,70,0.2) 0px, rgba(0,20,40,0.2) 2px, transparent 2px, transparent 8px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 5;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* glass close button (identical to about page style) */
+    .close-btn {
+      position: fixed;
+      top: 28px;
+      right: 28px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(20, 40, 60, 0.25);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 200, 255, 0.4);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 0 20px rgba(0, 200, 255, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #a0e0ff;
+      font-size: 26px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 9999;
+      text-decoration: none;
+    }
+
+    .close-btn:hover {
+      transform: scale(1.15);
+      background: rgba(30, 70, 100, 0.5);
+      box-shadow: 0 0 30px #00c8ff, 0 8px 25px black;
+      color: white;
+    }
+
+    /* header / title area */
+    .terms-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid rgba(0, 200, 255, 0.3);
+      position: relative;
+    }
+
+    .terms-header h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #9ad0ff, #70c0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px #0088cc);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .last-updated {
+      display: inline-block;
+      background: rgba(0, 160, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 200, 255, 0.3);
+      border-radius: 60px;
+      padding: 0.5rem 2rem;
+      font-size: 1rem;
+      color: #b0e0ff;
+      box-shadow: 0 0 15px rgba(0,180,255,0.3);
+    }
+
+    /* glass card style for each section */
+    .terms-section {
+      background: rgba(5, 15, 25, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 200, 255, 0.18);
+      border-radius: 40px;
+      padding: 2.2rem 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 35px -15px black, 0 0 0 1px rgba(0,160,255,0.1) inset;
+      transition: transform 0.25s ease, border-color 0.2s;
+    }
+
+    .terms-section:hover {
+      border-color: rgba(0, 200, 255, 0.5);
+      box-shadow: 0 25px 45px -20px black, 0 0 0 1px rgba(0,200,255,0.3) inset;
+      transform: translateY(-3px);
+    }
+
+    .terms-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-left: 6px solid #00c8ff;
+      padding-left: 1.2rem;
+      background: linear-gradient(90deg, rgba(0,200,255,0.2), transparent);
+    }
+
+    .terms-section h2 i {
+      color: #00c8ff;
+      font-size: 2rem;
+      filter: drop-shadow(0 0 10px cyan);
+    }
+
+    .terms-section p {
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+      color: #cbd5e3;
+      font-weight: 300;
+    }
+
+    .terms-section ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.8rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .terms-section ul li {
+      font-size: 1.1rem;
+      color: #b5d0f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: calc(50% - 1rem);
+    }
+
+    .terms-section ul li i {
+      color: #00c8ff;
+      font-size: 1.3rem;
+      width: 1.8rem;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .terms-section ul li { width: 100%; }
+      .terms-section { padding: 1.8rem 1.5rem; }
+    }
+
+    .highlight-badge {
+      background: rgba(0, 200, 255, 0.1);
+      border-radius: 40px;
+      padding: 0.3rem 1.2rem;
+      font-weight: 500;
+      display: inline-block;
+      border: 1px solid #00c8ff60;
+      margin-top: 1rem;
+    }
+
+    /* acknowledgment special style */
+    .acknowledgment-block {
+      background: linear-gradient(145deg, rgba(0,20,40,0.8), rgba(0,40,70,0.5));
+      border: 2px solid #00c8ff40;
+      border-radius: 48px;
+      padding: 2.8rem;
+      text-align: center;
+      margin: 3rem 0 2rem;
+    }
+
+    .acknowledgment-block p {
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+
+    .signature-line {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #fff, #7fc8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 1rem;
+    }
+
+    /* footer micro style (simplified) */
+    .legal-footer {
+      margin-top: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      border-top: 1px solid #1a4055;
+      padding-top: 2rem;
+      font-size: 0.95rem;
+      color: #7088a8;
+    }
+
+    .legal-footer a {
+      color: #b0d0f0;
+      text-decoration: none;
+      margin-right: 2rem;
+      transition: 0.2s;
+    }
+
+    .legal-footer a:hover {
+      color: #00c8ff;
+      text-shadow: 0 0 8px cyan;
+    }
+
+    /* additional glass glow for small elements */
+    .glass-pill {
+      background: rgba(0, 30, 50, 0.5);
+      backdrop-filter: blur(4px);
+      border-radius: 60px;
+      padding: 0.4rem 1.5rem;
+      border: 1px solid #00c8ff40;
+    }
+
+    /* responsive adjustments */
+    @media (max-width: 500px) {
+      .close-btn { width: 50px; height: 50px; font-size: 22px; top: 16px; right: 16px; }
+      .terms-header h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- floating close button linking back to index.html (same as about page) -->
+  <a href="index.html" class="close-btn" aria-label="close"><i class="fas fa-times"></i></a>
+
+  <div class="wrapper">
+    <!-- header with cinematic title -->
+    <div class="terms-header">
+      <h1>Terms of Service</h1>
+      <div class="last-updated">
+        <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i> Last Updated: March 2026
+      </div>
+    </div>
+
+    <!-- 1. Acceptance -->
+    <div class="terms-section">
+      <h2><i class="fas fa-check-circle"></i> 1. Acceptance of Terms</h2>
+      <p>By accessing or using CineMax, you confirm that you have read, understood, and agreed to these Terms of Service.</p>
+      <p>These Terms apply to all users of the platform, including visitors, viewers, and registered users.</p>
+    </div>
+
+    <!-- 2. About CineMax -->
+    <div class="terms-section">
+      <h2><i class="fas fa-film"></i> 2. About CineMax</h2>
+      <p>CineMax is a movie discovery and streaming platform designed to help users explore films, watch trailers, discover genres, and enjoy entertainment content through a modern web experience.</p>
+      <p>The platform may display:</p>
+      <ul>
+        <li><i class="fas fa-ticket-alt"></i> Movie information</li>
+        <li><i class="fas fa-image"></i> Posters and thumbnails</li>
+        <li><i class="fas fa-video"></i> Trailers</li>
+        <li><i class="fas fa-star"></i> Ratings and descriptions</li>
+        <li><i class="fas fa-users"></i> Cast and crew information</li>
+      </ul>
+      <p><span class="highlight-badge"><i class="fas fa-database" style="margin-right: 6px;"></i> Some content is provided through third-party services such as public movie databases.</span></p>
+    </div>
+
+    <!-- 3. User Responsibilities -->
+    <div class="terms-section">
+      <h2><i class="fas fa-user-shield"></i> 3. User Responsibilities</h2>
+      <p>When using CineMax, users agree to:</p>
+      <ul>
+        <li><i class="fas fa-gavel"></i> Use the platform only for lawful purposes</li>
+        <li><i class="fas fa-copyright"></i> Respect the rights of content creators and providers</li>
+        <li><i class="fas fa-ban"></i> Not attempt to disrupt or damage the website</li>
+        <li><i class="fas fa-lock"></i> Not attempt unauthorized access to servers or systems</li>
+        <li><i class="fas fa-robot"></i> Not use automated tools to scrape or collect data without permission</li>
+      </ul>
+      <p>Users must not use CineMax for illegal activities or activities that violate any applicable laws.</p>
+    </div>
+
+    <!-- 4. Content and Intellectual Property -->
+    <div class="terms-section">
+      <h2><i class="fas fa-copyright"></i> 4. Content and Intellectual Property</h2>
+      <p>All branding, design, and platform functionality of CineMax are the property of the website creator.</p>
+      <p>Movie information, posters, and trailers may be provided through third-party services and remain the property of their respective owners.</p>
+      <p>Users may not:</p>
+      <ul>
+        <li><i class="fas fa-copy"></i> Copy or redistribute CineMax platform design</li>
+        <li><i class="fas fa-globe"></i> Republish platform content without permission</li>
+        <li><i class="fas fa-trademark"></i> Use CineMax branding without authorization</li>
+      </ul>
+    </div>
+
+    <!-- 5. Third-Party Content -->
+    <div class="terms-section">
+      <h2><i class="fas fa-cloud"></i> 5. Third-Party Content</h2>
+      <p>CineMax may use external services to display movie-related data such as:</p>
+      <ul>
+        <li><i class="fas fa-align-left"></i> movie descriptions</li>
+        <li><i class="fas fa-star-half-alt"></i> ratings</li>
+        <li><i class="fas fa-images"></i> posters</li>
+        <li><i class="fas fa-play-circle"></i> trailers</li>
+      </ul>
+      <p>This content is owned by the respective providers and is used to enhance the user experience.</p>
+      <p><i class="fas fa-exclamation-triangle" style="color: #ffaa33; margin-right: 6px;"></i> CineMax is not responsible for inaccuracies or changes in third-party data.</p>
+    </div>
+
+    <!-- 6. Platform Availability -->
+    <div class="terms-section">
+      <h2><i class="fas fa-server"></i> 6. Platform Availability</h2>
+      <p>We strive to keep CineMax available and functioning smoothly. However, we do not guarantee that the platform will always be uninterrupted or error-free.</p>
+      <p>The service may occasionally be unavailable due to:</p>
+      <ul>
+        <li><i class="fas fa-tools"></i> maintenance</li>
+        <li><i class="fas fa-sync-alt"></i> updates</li>
+        <li><i class="fas fa-exclamation-circle"></i> server issues</li>
+        <li><i class="fas fa-bug"></i> technical problems</li>
+      </ul>
+      <p>CineMax reserves the right to modify or discontinue features at any time.</p>
+    </div>
+
+    <!-- 7. Limitation of Liability -->
+    <div class="terms-section">
+      <h2><i class="fas fa-shield-alt"></i> 7. Limitation of Liability</h2>
+      <p>CineMax is provided "as is" without warranties of any kind.</p>
+      <p>We are not responsible for:</p>
+      <ul>
+        <li><i class="fas fa-code"></i> technical errors</li>
+        <li><i class="fas fa-pause-circle"></i> service interruptions</li>
+        <li><i class="fas fa-database"></i> data loss</li>
+        <li><i class="fas fa-users-cog"></i> third-party content issues</li>
+      </ul>
+      <p>Users access and use the platform at their own risk.</p>
+    </div>
+
+    <!-- 8. User Data and Privacy -->
+    <div class="terms-section">
+      <h2><i class="fas fa-lock"></i> 8. User Data and Privacy</h2>
+      <p>Your use of CineMax may involve certain data such as:</p>
+      <ul>
+        <li><i class="fas fa-chart-line"></i> browsing preferences</li>
+        <li><i class="fas fa-clock"></i> watch history</li>
+        <li><i class="fas fa-heart"></i> wishlist selections</li>
+      </ul>
+      <p>All personal data is handled according to our <strong><a href="#" style="color: #80d0ff; text-decoration: none; border-bottom: 1px dashed;">Privacy Policy</a></strong>.</p>
+    </div>
+
+    <!-- 9. Changes to Terms -->
+    <div class="terms-section">
+      <h2><i class="fas fa-edit"></i> 9. Changes to Terms</h2>
+      <p>CineMax may update these Terms of Service at any time to reflect changes in the platform or legal requirements.</p>
+      <p>Updated terms will be posted on this page with a revised update date.</p>
+      <p>Continued use of the platform means you accept the updated Terms.</p>
+    </div>
+
+    <!-- 10. Termination of Use -->
+    <div class="terms-section">
+      <h2><i class="fas fa-stop-circle"></i> 10. Termination of Use</h2>
+      <p>CineMax reserves the right to restrict or terminate access to the platform if a user violates these Terms or engages in harmful activities.</p>
+    </div>
+
+    <!-- 11. Contact Information -->
+    <div class="terms-section">
+      <h2><i class="fas fa-envelope"></i> 11. Contact Information</h2>
+      <p>If you have questions regarding these Terms of Service, you may contact us through the website’s contact page.</p>
+      <div class="glass-pill" style="display: inline-block; margin-top: 0.5rem;">
+        <i class="fas fa-arrow-right" style="color: cyan;"></i> support@cinemax.example
+      </div>
+    </div>
+
+    <!-- 12. Acknowledgment (special block) -->
+    <div class="acknowledgment-block">
+      <i class="fas fa-check-circle" style="font-size: 4rem; color: #00c8ff; margin-bottom: 1rem; filter: drop-shadow(0 0 20px cyan);"></i>
+      <h2 style="color: white; margin-bottom: 1.5rem; border: none; padding-left: 0;">12. Acknowledgment</h2>
+      <p>By using CineMax, you acknowledge that you have read, understood, and agreed to these Terms of Service.</p>
+      <div class="signature-line">CineMax</div>
+      <div style="margin-top: 2rem; font-size: 1.2rem; opacity: 0.9;">Created by <strong style="color: white;">IBRAHIM AHMED</strong></div>
+    </div>
+
+    <!-- footer with links (mini version) -->
+    <div class="legal-footer">
+      <div>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
+      <div style="display: flex; gap: 1.5rem;">
+        <i class="fab fa-instagram" style="font-size: 1.5rem; opacity: 0.7; transition: 0.2s; cursor: default;"></i>
+        <i class="fab fa-x-twitter" style="font-size: 1.5rem; opacity: 0.7;"></i>
+        <i class="fab fa-youtube" style="font-size: 1.5rem; opacity: 0.7;"></i>
+      </div>
+    </div>
+
+    <!-- small note: design consistent with CineMax identity -->
+    <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #3f5568;">
+      <i class="fas fa-crown" style="color: #ffcc80;"></i> cinematic experience · CineMax
+    </div>
+  </div>
+
+  <!-- no heavy JS needed, just style consistency and close button functionality -->
+  <script>
+    (function() {
+      // optional: subtle hover for footer icons (no three.js needed)
+      console.log('Terms of Service CineMax · designed by IBRAHIM AHMED');
+    })();
+  </script>
+</body>
+</html>

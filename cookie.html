@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineMax · Cookie Policy</title>
+  <!-- Fonts & Icons (cinematic identity) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* === cookie.css – cinematic, matches app.js & privacy theme === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #3b82f6;
+      --primary-glow: #00a6ff;
+      --bg-deep: #030614;
+      --bg-card: rgba(10, 20, 35, 0.4);
+      --glass-border: rgba(0, 166, 255, 0.25);
+      --text-light: #f0f4ff;
+      --text-dim: #b0c8e0;
+      --accent-gradient: linear-gradient(135deg, #3b82f6, #00a6ff);
+      --surface: #0a1a2a; /* for compatibility with app.js */
+      --secondary: #192a56;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* cinematic background with floating particles (dust motes) – consistent with contact */
+    .particle-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(circle at 30% 40%, rgba(0,100,200,0.15) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(0,166,255,0.1) 0%, transparent 45%);
+    }
+
+    .floating-dust {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><filter id="f"><feGaussianBlur stdDeviation="2"/></filter></defs><circle cx="10%" cy="20%" r="2" fill="white" opacity="0.3" filter="url(%23f)"/><circle cx="90%" cy="50%" r="3" fill="%23aaddff" opacity="0.2" filter="url(%23f)"/><circle cx="30%" cy="80%" r="1.5" fill="white" opacity="0.25"/><circle cx="70%" cy="15%" r="2.5" fill="%233b82f6" opacity="0.2"/><circle cx="50%" cy="40%" r="4" fill="%2300a6ff" opacity="0.1" filter="url(%23f)"/></svg>');
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.5;
+      animation: dustDrift 120s linear infinite;
+    }
+
+    @keyframes dustDrift {
+      0% { background-position: 0 0; }
+      100% { background-position: 200px 200px; }
+    }
+
+    /* fixed glass close button (top right) */
+    .close-btn {
+      position: fixed;
+      top: 28px;
+      right: 28px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(20, 30, 50, 0.3);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(0, 166, 255, 0.5);
+      box-shadow: 0 0 25px rgba(0, 166, 255, 0.6), 0 8px 20px rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b0eaff;
+      font-size: 28px;
+      text-decoration: none;
+      z-index: 9999;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
+
+    .close-btn:hover {
+      transform: scale(1.18);
+      background: rgba(30, 60, 100, 0.6);
+      box-shadow: 0 0 40px #00a6ff, 0 10px 30px black;
+      color: white;
+    }
+
+    /* main wrapper */
+    .wrapper {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* header with cinematic title */
+    .cookie-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid rgba(0, 166, 255, 0.3);
+    }
+
+    .cookie-header h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #9ad0ff, #70c0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px #0088ff);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .last-updated {
+      display: inline-block;
+      background: rgba(0, 168, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 166, 255, 0.3);
+      border-radius: 60px;
+      padding: 0.5rem 2rem;
+      font-size: 1rem;
+      color: var(--text-dim);
+      box-shadow: 0 0 15px rgba(0,166,255,0.3);
+    }
+
+    /* glass card for each section (matches privacy/terms) */
+    .cookie-section {
+      background: rgba(5, 15, 25, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 166, 255, 0.18);
+      border-radius: 40px;
+      padding: 2.2rem 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 35px -15px black, 0 0 0 1px rgba(0,166,255,0.1) inset;
+      transition: transform 0.25s ease, border-color 0.2s;
+    }
+
+    .cookie-section:hover {
+      border-color: rgba(0, 166, 255, 0.5);
+      box-shadow: 0 25px 45px -20px black, 0 0 0 1px rgba(0,166,255,0.3) inset;
+      transform: translateY(-3px);
+    }
+
+    .cookie-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-left: 6px solid var(--primary);
+      padding-left: 1.2rem;
+      background: linear-gradient(90deg, rgba(0,166,255,0.2), transparent);
+    }
+
+    .cookie-section h2 i {
+      color: var(--primary);
+      font-size: 2rem;
+      filter: drop-shadow(0 0 10px var(--primary));
+    }
+
+    .cookie-section p {
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+      color: #cbd5e3;
+      font-weight: 300;
+    }
+
+    .cookie-section ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.8rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .cookie-section ul li {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: calc(50% - 1rem);
+    }
+
+    .cookie-section ul li i {
+      color: var(--primary);
+      font-size: 1.3rem;
+      width: 1.8rem;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .cookie-section ul li { width: 100%; }
+      .cookie-section { padding: 1.8rem 1.5rem; }
+    }
+
+    .highlight-badge {
+      background: rgba(0, 166, 255, 0.1);
+      border-radius: 40px;
+      padding: 0.3rem 1.2rem;
+      font-weight: 500;
+      display: inline-block;
+      border: 1px solid rgba(0,166,255,0.6);
+      margin-top: 1rem;
+      color: var(--text-dim);
+    }
+
+    .highlight-badge i {
+      color: var(--primary);
+    }
+
+    /* table for storage keys (app.js specific) */
+    .storage-table {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 0.8rem 1rem;
+      margin: 2rem 0;
+      background: rgba(0,20,40,0.6);
+      border-radius: 24px;
+      padding: 1.5rem;
+      border: 1px solid #3b82f640;
+    }
+
+    .storage-item {
+      display: contents;
+    }
+
+    .storage-key {
+      font-family: monospace;
+      color: #00a6ff;
+      background: rgba(0,0,0,0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      font-weight: 500;
+      border: 1px solid #3b82f6;
+    }
+
+    .storage-desc {
+      color: var(--text-dim);
+      padding: 0.5rem 0;
+    }
+
+    /* signature/contact block */
+    .signature-block {
+      background: linear-gradient(145deg, rgba(0,20,40,0.8), rgba(0,40,70,0.5));
+      border: 2px solid rgba(0,166,255,0.4);
+      border-radius: 48px;
+      padding: 2.8rem;
+      text-align: center;
+      margin: 3rem 0 2rem;
+    }
+
+    .signature-line {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #fff, #7fc8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 1rem;
+    }
+
+    .glass-pill {
+      background: rgba(0, 30, 50, 0.5);
+      backdrop-filter: blur(4px);
+      border-radius: 60px;
+      padding: 0.4rem 1.5rem;
+      border: 1px solid rgba(0,166,255,0.4);
+      display: inline-block;
+      color: var(--text-dim);
+    }
+
+    /* footer micro */
+    .legal-footer {
+      margin-top: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      border-top: 1px solid #1a4055;
+      padding-top: 2rem;
+      font-size: 0.95rem;
+      color: #7088a8;
+    }
+
+    .legal-footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      margin-right: 2rem;
+      transition: 0.2s;
+    }
+
+    .legal-footer a:hover {
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary);
+    }
+
+    @media (max-width: 500px) {
+      .close-btn { width: 52px; height: 52px; font-size: 22px; top: 16px; right: 16px; }
+      .cookie-header h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- fixed close button (X) to index.html -->
+  <a href="index.html" class="close-btn" aria-label="Back to home"><i class="fas fa-times"></i></a>
+
+  <!-- cinematic dust overlay (same as contact) -->
+  <div class="particle-overlay"></div>
+  <div class="floating-dust"></div>
+
+  <div class="wrapper">
+    <!-- header -->
+    <div class="cookie-header">
+      <h1>Cookie Policy</h1>
+      <div class="last-updated">
+        <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i> Last Updated: March 2026
+      </div>
+    </div>
+
+    <!-- intro aligned with app.js functionality -->
+    <div class="cookie-section">
+      <h2><i class="fas fa-cookie-bite"></i> Our use of cookies & local storage</h2>
+      <p>At CineMax, we believe in transparency. This policy explains how we use cookies, local storage, and similar technologies to enhance your cinematic experience — exactly as implemented in our application (<code>app.js</code>). By using CineMax, you consent to the storage and access of data as described below.</p>
+    </div>
+
+    <!-- 1. What are cookies & local storage? -->
+    <div class="cookie-section">
+      <h2><i class="fas fa-question-circle"></i> 1. What are cookies & local storage?</h2>
+      <p><strong>Cookies</strong> are small text files placed on your device. <strong>Local storage</strong> (used heavily by CineMax) is a modern web API that allows websites to store structured data persistently in your browser. Unlike cookies, local storage is not automatically sent to the server with every request — it stays on your device, and we use it to remember your preferences, wishlist, and viewing progress.</p>
+    </div>
+
+    <!-- 2. How CineMax uses local storage & cookies (based on app.js) -->
+    <div class="cookie-section">
+      <h2><i class="fas fa-database"></i> 2. Storage keys & purposes</h2>
+      <p>Our JavaScript (<code>app.js</code>) uses the following storage keys. All data remains on your device unless you clear it.</p>
+      <div class="storage-table">
+        <div class="storage-item">
+          <span class="storage-key">cinemax_wishlist</span>
+          <span class="storage-desc">Movies/TV shows you've saved ❤️ — used to display your wishlist.</span>
+        </div>
+        <div class="storage-item">
+          <span class="storage-key">cinemax_continue_watching</span>
+          <span class="storage-desc">Progress (timestamp/duration) for videos you started, so you can resume.</span>
+        </div>
+        <div class="storage-item">
+          <span class="storage-key">cinemax_watch_history</span>
+          <span class="storage-desc">Last 50 items you played — powers "continue watching" & AI recommendations.</span>
+        </div>
+        <div class="storage-item">
+          <span class="storage-key">cinemax_cache</span>
+          <span class="storage-desc">Cached movie metadata (posters, details) to reduce API calls and speed up browsing.</span>
+        </div>
+        <div class="storage-item">
+          <span class="storage-key">cinemax_new_content</span>
+          <span class="storage-desc">Tracks which movies/TV shows are marked "NEW" based on release date (7‑day window).</span>
+        </div>
+        <div class="storage-item">
+          <span class="storage-key">backend_connection (memory cache)</span>
+          <span class="storage-desc">Temporary in‑memory cache for server availability (refreshed often).</span>
+        </div>
+      </div>
+      <p><span class="highlight-badge"><i class="fas fa-info-circle"></i> We do not use tracking cookies for advertising. All data is strictly for functional and personalization purposes.</span></p>
+    </div>
+
+    <!-- 3. Third-party services (TMDB, YouTube, streaming servers) -->
+    <div class="cookie-section">
+      <h2><i class="fas fa-external-link-alt"></i> 3. Third-party services</h2>
+      <p>While CineMax itself uses only local storage, third-party services we integrate may set their own cookies or storage:</p>
+      <ul>
+        <li><i class="fab fa-youtube"></i> <strong>YouTube (trailers):</strong> Embeds may set cookies for video preferences and analytics. Google's <a href="#" style="color: var(--primary);">privacy policy</a> applies.</li>
+        <li><i class="fas fa-film"></i> <strong>The Movie Database (TMDB):</strong> API requests are made from your browser; TMDB may log requests according to their policy.</li>
+        <li><i class="fas fa-play-circle"></i> <strong>Streaming servers (Vidlux):</strong> Embedded iframes may use local storage or cookies for playback functionality. These are outside our control.</li>
+      </ul>
+    </div>
+
+    <!-- 4. Managing / clearing your data -->
+    <div class="cookie-section">
+      <h2><i class="fas fa-cog"></i> 4. Managing your storage</h2>
+      <p>You have full control over your data. Here's how to clear it:</p>
+      <ul>
+        <li><i class="fas fa-trash-alt"></i> <strong>Clear wishlist/progress:</strong> Use your browser's "Clear site data" option (usually found in DevTools → Application → Local Storage).</li>
+        <li><i class="fas fa-ban"></i> <strong>Opt out of local storage:</strong> You can disable local storage in browser settings, but CineMax may not function properly (wishlist, continue watching, etc. will not persist).</li>
+        <li><i class="fas fa-redo-alt"></i> <strong>Reset "new" badges:</strong> Clear <code>cinemax_new_content</code> from local storage.</li>
+      </ul>
+      <p style="margin-top: 1rem;">For a quick reset, you can also run <code style="background: #0a1a2a; padding: 0.2rem 0.8rem; border-radius: 30px;">localStorage.clear()</code> in the browser console (this will log you out of any local preferences).</p>
+    </div>
+
+    <!-- 5. Cache & performance -->
+    <div class="cookie-section">
+      <h2><i class="fas fa-tachometer-alt"></i> 5. Performance & caching</h2>
+      <p>To deliver a smooth experience, CineMax caches API responses (like movie lists) in memory and local storage. This data expires automatically (usually after 1 hour) and is never shared. Server latency checks are temporary and not stored beyond your session.</p>
+    </div>
+
+    <!-- 6. Policy updates -->
+    <div class="cookie-section">
+      <h2><i class="fas fa-sync-alt"></i> 6. Changes to this policy</h2>
+      <p>We may update this Cookie Policy to reflect changes in our app or legal requirements. The "Last Updated" date at the top of this page will be revised. Continued use of CineMax after changes constitutes your acceptance.</p>
+    </div>
+
+    <!-- 7. Contact -->
+    <div class="signature-block">
+      <i class="fas fa-cookie" style="font-size: 4rem; color: var(--primary); margin-bottom: 1rem; filter: drop-shadow(0 0 20px var(--primary));"></i>
+      <h2 style="color: white; margin-bottom: 1.5rem; border: none; padding-left: 0;">Questions about cookies?</h2>
+      <p>If you'd like more details about our storage practices, reach out to our creator directly:</p>
+      <div class="glass-pill" style="margin-top: 1.5rem; padding: 0.8rem 2rem;">
+        <i class="fas fa-envelope" style="color: var(--primary); margin-right: 8px;"></i> ibrahimahmedk.k2007@gmail.com
+      </div>
+      <div class="signature-line" style="margin-top: 2rem;">CineMax</div>
+      <div style="margin-top: 1rem; font-size: 1.2rem; opacity: 0.9;">Created by <strong style="color: white;">IBRAHIM AHMED</strong></div>
+    </div>
+
+    <!-- footer (consistent) -->
+    <div class="legal-footer">
+      <div>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
+      <div style="display: flex; gap: 1.5rem;">
+        <i class="fab fa-instagram" style="font-size: 1.5rem; opacity: 0.7; transition: 0.2s; cursor: default;"></i>
+        <i class="fab fa-x-twitter" style="font-size: 1.5rem; opacity: 0.7;"></i>
+        <i class="fab fa-letterboxd" style="font-size: 1.5rem; opacity: 0.7;"></i>
+        <i class="fab fa-youtube" style="font-size: 1.5rem; opacity: 0.7;"></i>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #3f5568;">
+      <i class="fas fa-crown" style="color: #ffcc80;"></i> transparency in every frame · CineMax
+    </div>
+  </div>
+
+  <!-- tiny JS for interactivity (no tracking) -->
+  <script>
+    (function() {
+      console.log('CineMax Cookie Policy · aligned with app.js localStorage keys');
+      // optional: highlight any email click
+      document.querySelector('.glass-pill')?.addEventListener('click', () => {
+        window.location.href = 'mailto:ibrahimahmedk.k2007@gmail.com';
+      });
+    })();
+  </script>
+</body>
+</html>

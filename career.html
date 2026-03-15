@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineMax · Careers · join the studio</title>
+  <!-- Fonts & Icons (cinematic identity) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* === careers.css – cinematic, matches app.js & global theme === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #3b82f6;
+      --primary-glow: #00a6ff;
+      --bg-deep: #030614;
+      --bg-card: rgba(10, 20, 35, 0.4);
+      --glass-border: rgba(0, 166, 255, 0.25);
+      --text-light: #f0f4ff;
+      --text-dim: #b0c8e0;
+      --accent-gradient: linear-gradient(135deg, #3b82f6, #00a6ff);
+      --surface: #0a1a2a;
+      --secondary: #192a56;
+      --success: #00ff88;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* cinematic background with floating particles (dust motes) */
+    .particle-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(circle at 30% 40%, rgba(0,100,200,0.15) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(0,166,255,0.1) 0%, transparent 45%);
+    }
+
+    .floating-dust {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><filter id="f"><feGaussianBlur stdDeviation="2"/></filter></defs><circle cx="10%" cy="20%" r="2" fill="white" opacity="0.3" filter="url(%23f)"/><circle cx="90%" cy="50%" r="3" fill="%23aaddff" opacity="0.2" filter="url(%23f)"/><circle cx="30%" cy="80%" r="1.5" fill="white" opacity="0.25"/><circle cx="70%" cy="15%" r="2.5" fill="%233b82f6" opacity="0.2"/><circle cx="50%" cy="40%" r="4" fill="%2300a6ff" opacity="0.1" filter="url(%23f)"/></svg>');
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.5;
+      animation: dustDrift 120s linear infinite;
+    }
+
+    @keyframes dustDrift {
+      0% { background-position: 0 0; }
+      100% { background-position: 200px 200px; }
+    }
+
+    /* fixed glass close button (top right) */
+    .close-btn {
+      position: fixed;
+      top: 28px;
+      right: 28px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(20, 30, 50, 0.3);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(0, 166, 255, 0.5);
+      box-shadow: 0 0 25px rgba(0, 166, 255, 0.6), 0 8px 20px rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b0eaff;
+      font-size: 28px;
+      text-decoration: none;
+      z-index: 9999;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
+
+    .close-btn:hover {
+      transform: scale(1.18);
+      background: rgba(30, 60, 100, 0.6);
+      box-shadow: 0 0 40px #00a6ff, 0 10px 30px black;
+      color: white;
+    }
+
+    /* main wrapper */
+    .wrapper {
+      position: relative;
+      z-index: 10;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* header with cinematic title */
+    .careers-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid rgba(0, 166, 255, 0.3);
+    }
+
+    .careers-header h1 {
+      font-size: clamp(3.2rem, 9vw, 5.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #9ad0ff, #70c0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px #0088ff);
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .last-updated {
+      display: inline-block;
+      background: rgba(0, 168, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 166, 255, 0.3);
+      border-radius: 60px;
+      padding: 0.5rem 2rem;
+      font-size: 1rem;
+      color: var(--text-dim);
+      box-shadow: 0 0 15px rgba(0,166,255,0.3);
+    }
+
+    /* hero/callout */
+    .hero-careers {
+      background: rgba(0, 20, 40, 0.5);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,166,255,0.3);
+      border-radius: 60px;
+      padding: 3rem 3rem;
+      margin: 2rem 0 4rem;
+      text-align: center;
+      box-shadow: 0 30px 40px -20px black;
+    }
+
+    .hero-careers h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-careers p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      color: var(--text-dim);
+    }
+
+    .email-badge {
+      font-size: 1.8rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      border: 2px solid rgba(0,166,255,0.5);
+      border-radius: 60px;
+      padding: 1rem 2.5rem;
+      display: inline-block;
+      backdrop-filter: blur(8px);
+      transition: 0.3s;
+    }
+
+    .email-badge:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 50px #3b82f6;
+      border-color: #00a6ff;
+    }
+
+    /* glass card for sections */
+    .glass-card {
+      background: rgba(5, 15, 25, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 166, 255, 0.18);
+      border-radius: 40px;
+      padding: 2.2rem 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 35px -15px black, 0 0 0 1px rgba(0,166,255,0.1) inset;
+      transition: transform 0.25s ease, border-color 0.2s;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(0, 166, 255, 0.5);
+      box-shadow: 0 25px 45px -20px black, 0 0 0 1px rgba(0,166,255,0.3) inset;
+      transform: translateY(-5px);
+    }
+
+    .glass-card h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-left: 6px solid var(--primary);
+      padding-left: 1.2rem;
+      background: linear-gradient(90deg, rgba(0,166,255,0.2), transparent);
+    }
+
+    .glass-card h2 i {
+      color: var(--primary);
+      font-size: 2.2rem;
+      filter: drop-shadow(0 0 10px var(--primary));
+    }
+
+    /* job listing grid */
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .job-card {
+      background: rgba(10, 25, 45, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0,166,255,0.2);
+      border-radius: 36px;
+      padding: 2rem 1.8rem;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .job-card:hover {
+      border-color: #00a6ff;
+      box-shadow: 0 0 50px #3b82f640;
+      transform: translateY(-8px) scale(1.01);
+    }
+
+    .job-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .job-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .job-type {
+      display: inline-block;
+      background: rgba(0,166,255,0.2);
+      border-radius: 40px;
+      padding: 0.2rem 1rem;
+      font-size: 0.9rem;
+      border: 1px solid #3b82f6;
+      margin: 0.5rem 0 1rem;
+      width: fit-content;
+    }
+
+    .job-desc {
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+
+    .job-apply {
+      background: transparent;
+      border: 2px solid var(--primary);
+      border-radius: 40px;
+      padding: 0.8rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+
+    .job-apply:hover {
+      background: var(--primary);
+      box-shadow: 0 0 30px #3b82f6;
+      border-color: transparent;
+    }
+
+    /* culture/perks */
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .perk-item {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(0,30,50,0.4);
+      border-radius: 36px;
+      border: 1px dashed var(--primary);
+    }
+
+    .perk-item i {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .perk-item h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .perk-item p {
+      color: var(--text-dim);
+    }
+
+    /* values */
+    .values-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .value-badge {
+      background: rgba(0,40,70,0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0,166,255,0.3);
+      border-radius: 60px;
+      padding: 0.8rem 2rem;
+      font-size: 1.3rem;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .value-badge:hover {
+      border-color: #00a6ff;
+      box-shadow: 0 0 30px #3b82f6;
+      transform: scale(1.1);
+    }
+
+    /* email section prominent */
+    .apply-email-section {
+      background: linear-gradient(145deg, #051a2a, #010b14);
+      border-radius: 80px;
+      padding: 3rem;
+      margin: 4rem 0;
+      border: 1px solid #3b82f6;
+      box-shadow: 0 0 100px #3b82f620;
+      text-align: center;
+    }
+
+    .creator-email-large {
+      font-size: 2.2rem;
+      font-weight: 600;
+      background: rgba(0,40,70,0.4);
+      padding: 1.5rem 2.5rem;
+      border-radius: 60px;
+      border: 2px solid rgba(0,166,255,0.5);
+      box-shadow: 0 0 30px #3b82f6;
+      transition: all 0.3s;
+      word-break: break-all;
+      display: inline-block;
+    }
+
+    .creator-email-large a {
+      color: white;
+      text-decoration: none;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .creator-email-large:hover {
+      border-color: #00a6ff;
+      transform: scale(1.05);
+      box-shadow: 0 0 70px #00a6ff;
+    }
+
+    /* footer */
+    .legal-footer {
+      margin-top: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      border-top: 1px solid #1a4055;
+      padding-top: 2rem;
+      font-size: 0.95rem;
+      color: #7088a8;
+    }
+
+    .legal-footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      margin-right: 2rem;
+      transition: 0.2s;
+    }
+
+    .legal-footer a:hover {
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary);
+    }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      .close-btn { width: 52px; height: 52px; font-size: 22px; top: 16px; right: 16px; }
+      .hero-careers { padding: 2rem 1.5rem; }
+      .hero-careers h2 { font-size: 2rem; }
+      .email-badge { font-size: 1.2rem; }
+      .creator-email-large { font-size: 1.4rem; }
+      .glass-card { padding: 1.8rem; }
+    }
+
+    @media (max-width: 500px) {
+      .jobs-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- fixed close button (X) to index.html -->
+  <a href="index.html" class="close-btn" aria-label="Back to home"><i class="fas fa-times"></i></a>
+
+  <!-- cinematic dust overlay -->
+  <div class="particle-overlay"></div>
+  <div class="floating-dust"></div>
+
+  <div class="wrapper">
+    <!-- header -->
+    <div class="careers-header">
+      <h1>Join the crew</h1>
+      <div class="last-updated">
+        <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i> Now hiring · March 2026
+      </div>
+    </div>
+
+    <!-- hero / callout with creator email -->
+    <div class="hero-careers">
+      <h2>🛸 Build the future of cinema</h2>
+      <p>At CineMax, we're crafting next-generation movie experiences. If you're passionate about film, design, and code, come work with us.</p>
+      <div class="email-badge">
+        <i class="fas fa-envelope" style="margin-right: 10px;"></i> ibrahimahmedk.k2007@gmail.com
+      </div>
+    </div>
+
+    <!-- open positions (glass card) -->
+    <div class="glass-card">
+      <h2><i class="fas fa-briefcase"></i> Open roles</h2>
+      <p>We're looking for storytellers, engineers, and creatives. All roles are remote (virtual studio).</p>
+
+      <div class="jobs-grid">
+        <!-- job 1 -->
+        <div class="job-card">
+          <div class="job-icon"><i class="fas fa-code"></i></div>
+          <div class="job-title">Senior Frontend Engineer</div>
+          <div class="job-type">Full-time · Remote</div>
+          <div class="job-desc">Build immersive WebGL/Three.js interfaces. Experience with cinematic UI and React a plus.</div>
+          <button class="job-apply" onclick="alert('📬 Demo: Please send your resume to ibrahimahmedk.k2007@gmail.com')">Apply now →</button>
+        </div>
+        <!-- job 2 -->
+        <div class="job-card">
+          <div class="job-icon"><i class="fas fa-paint-brush"></i></div>
+          <div class="job-title">Cinematic UI Designer</div>
+          <div class="job-type">Full-time · Remote</div>
+          <div class="job-desc">Design glassmorphism, motion, and futuristic interfaces for web and TV apps.</div>
+          <button class="job-apply" onclick="alert('📬 Demo: Please send your portfolio to ibrahimahmedk.k2007@gmail.com')">Apply now →</button>
+        </div>
+        <!-- job 3 -->
+        <div class="job-card">
+          <div class="job-icon"><i class="fas fa-film"></i></div>
+          <div class="job-title">Content Curator</div>
+          <div class="job-type">Part-time · Remote</div>
+          <div class="job-desc">Help us discover hidden gems and build personalized watchlists for users.</div>
+          <button class="job-apply" onclick="alert('📬 Demo: Send your letter to ibrahimahmedk.k2007@gmail.com')">Apply now →</button>
+        </div>
+        <!-- job 4 -->
+        <div class="job-card">
+          <div class="job-icon"><i class="fas fa-robot"></i></div>
+          <div class="job-title">AI / ML Engineer</div>
+          <div class="job-type">Full-time · Remote</div>
+          <div class="job-desc">Work on recommendation algorithms and personalization features.</div>
+          <button class="job-apply" onclick="alert('📬 Demo: Share your GitHub with ibrahimahmedk.k2007@gmail.com')">Apply now →</button>
+        </div>
+        <!-- job 5 -->
+        <div class="job-card">
+          <div class="job-icon"><i class="fas fa-headset"></i></div>
+          <div class="job-title">Community & Support</div>
+          <div class="job-type">Contract · Remote</div>
+          <div class="job-desc">Engage with our audience, manage feedback, and help build the community.</div>
+          <button class="job-apply" onclick="alert('📬 Demo: Reach out via email below')">Apply now →</button>
+        </div>
+        <!-- job 6 -->
+        <div class="job-card">
+          <div class="job-icon"><i class="fas fa-video"></i></div>
+          <div class="job-title">Trailer Editor</div>
+          <div class="job-type">Freelance</div>
+          <div class="job-desc">Cut cinematic trailers for our social channels. Must have reel.</div>
+          <button class="job-apply" onclick="alert('📬 Demo: Send links to ibrahimahmedk.k2007@gmail.com')">Apply now →</button>
+        </div>
+      </div>
+      <p style="text-align: center; margin-top: 2rem;"><i class="fas fa-arrow-down" style="color: var(--primary);"></i> Don't see a perfect fit? Email us anyway.</p>
+    </div>
+
+    <!-- why join us / culture & perks -->
+    <div class="glass-card">
+      <h2><i class="fas fa-crown"></i> Perks of the virtual studio</h2>
+      <div class="perks-grid">
+        <div class="perk-item"><i class="fas fa-globe"></i><h3>Remote-first</h3><p>Work from anywhere</p></div>
+        <div class="perk-item"><i class="fas fa-film"></i><h3>Movie nights</h3><p>Weekly screening club</p></div>
+        <div class="perk-item"><i class="fas fa-laptop-code"></i><h3>Creative tools</h3><p>Budget for gear & learning</p></div>
+        <div class="perk-item"><i class="fas fa-calendar-alt"></i><h3>Flexible hours</h3><p>Focus on impact</p></div>
+      </div>
+    </div>
+
+    <!-- our values -->
+    <div class="glass-card">
+      <h2><i class="fas fa-heart"></i> Values that guide us</h2>
+      <div class="values-list">
+        <span class="value-badge">✨ obsession with cinema</span>
+        <span class="value-badge">🧑‍🎨 creativity first</span>
+        <span class="value-badge">🔮 futuristic thinking</span>
+        <span class="value-badge">🤝 community love</span>
+        <span class="value-badge">🌍 inclusivity</span>
+        <span class="value-badge">⚡ pixel perfection</span>
+      </div>
+    </div>
+
+    <!-- how to apply (prominent creator email) -->
+    <div class="apply-email-section">
+      <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">🚀 ready to join?</h2>
+      <p style="font-size: 1.3rem; margin-bottom: 2rem;">Send your resume, portfolio, or a note to the creator directly:</p>
+      <div class="creator-email-large">
+        <a href="mailto:ibrahimahmedk.k2007@gmail.com">ibrahimahmedk.k2007@gmail.com</a>
+      </div>
+      <p style="margin-top: 2rem; color: var(--text-dim);">We review every application personally. No AI screenings — just humans who love movies.</p>
+    </div>
+
+    <!-- footer -->
+    <div class="legal-footer">
+      <div>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
+      <div style="display: flex; gap: 1.5rem;">
+        <i class="fab fa-instagram" style="font-size: 1.5rem; opacity: 0.7;"></i>
+        <i class="fab fa-x-twitter" style="font-size: 1.5rem; opacity: 0.7;"></i>
+        <i class="fab fa-letterboxd" style="font-size: 1.5rem; opacity: 0.7;"></i>
+        <i class="fab fa-youtube" style="font-size: 1.5rem; opacity: 0.7;"></i>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 2rem; color: #3f5568;">
+      <i class="fas fa-crown" style="color: #ffcc80;"></i> CineMax · creator IBRAHIM AHMED
+    </div>
+  </div>
+
+  <!-- simple JS for demo interactions -->
+  <script>
+    (function() {
+      console.log('CineMax Careers — reach out to ibrahimahmedk.k2007@gmail.com');
+      // add click listeners to apply buttons (already inline)
+      // but we can also add a smooth scroll
+      document.querySelector('.email-badge')?.addEventListener('click', () => {
+        window.location.href = 'mailto:ibrahimahmedk.k2007@gmail.com';
+      });
+    })();
+  </script>
+</body>
+</html>

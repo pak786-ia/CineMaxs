@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineMax · Privacy Policy</title>
+  <!-- Font & Icons (consistent with app.js cinematic style) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* === GLOBAL DESIGN SYSTEM (mirrors app.js variables & cinematic style) === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #00a8ff;
+      --secondary: #192a56;
+      --surface: #0a1a2a;
+      --background: #03050a;
+      --text: #ffffff;
+      --text-secondary: #b0d0f0;
+      --accent: #ffd700;
+      --error: #ff4757;
+      --success: #00ff88;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* cinematic background glow (same as about/terms) */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 70% 20%, rgba(0, 168, 255, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 20% 80%, rgba(0, 102, 255, 0.1) 0%, transparent 55%),
+                  repeating-linear-gradient(45deg, rgba(0,40,70,0.2) 0px, rgba(0,20,40,0.2) 2px, transparent 2px, transparent 8px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 5;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* glass close button (identical to all CineMax pages) */
+    .close-btn {
+      position: fixed;
+      top: 28px;
+      right: 28px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(20, 40, 60, 0.25);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 168, 255, 0.4);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 0 20px rgba(0, 168, 255, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #a0e0ff;
+      font-size: 26px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 9999;
+      text-decoration: none;
+    }
+
+    .close-btn:hover {
+      transform: scale(1.15);
+      background: rgba(30, 70, 100, 0.5);
+      box-shadow: 0 0 30px var(--primary), 0 8px 25px black;
+      color: white;
+    }
+
+    /* header with cinematic title */
+    .privacy-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid rgba(0, 168, 255, 0.3);
+      position: relative;
+    }
+
+    .privacy-header h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #9ad0ff, #70c0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px var(--primary));
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .last-updated {
+      display: inline-block;
+      background: rgba(0, 168, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 168, 255, 0.3);
+      border-radius: 60px;
+      padding: 0.5rem 2rem;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      box-shadow: 0 0 15px rgba(0,168,255,0.3);
+    }
+
+    /* glass card for each section (consistent with terms) */
+    .privacy-section {
+      background: rgba(5, 15, 25, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 168, 255, 0.18);
+      border-radius: 40px;
+      padding: 2.2rem 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 35px -15px black, 0 0 0 1px rgba(0,168,255,0.1) inset;
+      transition: transform 0.25s ease, border-color 0.2s;
+    }
+
+    .privacy-section:hover {
+      border-color: rgba(0, 168, 255, 0.5);
+      box-shadow: 0 25px 45px -20px black, 0 0 0 1px rgba(0,168,255,0.3) inset;
+      transform: translateY(-3px);
+    }
+
+    .privacy-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-left: 6px solid var(--primary);
+      padding-left: 1.2rem;
+      background: linear-gradient(90deg, rgba(0,168,255,0.2), transparent);
+    }
+
+    .privacy-section h2 i {
+      color: var(--primary);
+      font-size: 2rem;
+      filter: drop-shadow(0 0 10px var(--primary));
+    }
+
+    .privacy-section p {
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+      color: #cbd5e3;
+      font-weight: 300;
+    }
+
+    .privacy-section ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.8rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .privacy-section ul li {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: calc(50% - 1rem);
+    }
+
+    .privacy-section ul li i {
+      color: var(--primary);
+      font-size: 1.3rem;
+      width: 1.8rem;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .privacy-section ul li { width: 100%; }
+      .privacy-section { padding: 1.8rem 1.5rem; }
+    }
+
+    .highlight-badge {
+      background: rgba(0, 168, 255, 0.1);
+      border-radius: 40px;
+      padding: 0.3rem 1.2rem;
+      font-weight: 500;
+      display: inline-block;
+      border: 1px solid rgba(0,168,255,0.6);
+      margin-top: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .highlight-badge i {
+      color: var(--primary);
+    }
+
+    /* signature block */
+    .signature-block {
+      background: linear-gradient(145deg, rgba(0,20,40,0.8), rgba(0,40,70,0.5));
+      border: 2px solid rgba(0,168,255,0.4);
+      border-radius: 48px;
+      padding: 2.8rem;
+      text-align: center;
+      margin: 3rem 0 2rem;
+    }
+
+    .signature-block p {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+    }
+
+    .signature-line {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #fff, #7fc8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 1rem;
+    }
+
+    /* footer micro style */
+    .legal-footer {
+      margin-top: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      border-top: 1px solid #1a4055;
+      padding-top: 2rem;
+      font-size: 0.95rem;
+      color: #7088a8;
+    }
+
+    .legal-footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-right: 2rem;
+      transition: 0.2s;
+    }
+
+    .legal-footer a:hover {
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary);
+    }
+
+    .glass-pill {
+      background: rgba(0, 30, 50, 0.5);
+      backdrop-filter: blur(4px);
+      border-radius: 60px;
+      padding: 0.4rem 1.5rem;
+      border: 1px solid rgba(0,168,255,0.4);
+      display: inline-block;
+      color: var(--text-secondary);
+    }
+
+    /* responsive adjustments */
+    @media (max-width: 500px) {
+      .close-btn { width: 50px; height: 50px; font-size: 22px; top: 16px; right: 16px; }
+      .privacy-header h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- floating close button linking back to index.html (consistent) -->
+  <a href="index.html" class="close-btn" aria-label="close"><i class="fas fa-times"></i></a>
+
+  <div class="wrapper">
+    <!-- header with cinematic title -->
+    <div class="privacy-header">
+      <h1>Privacy Policy</h1>
+      <div class="last-updated">
+        <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i> Last Updated: March 2026
+      </div>
+    </div>
+
+    <!-- Welcome note - aligned with app.js functionality -->
+    <div class="privacy-section">
+      <h2><i class="fas fa-shield-heart"></i> Your Privacy at CineMax</h2>
+      <p>At CineMax, your privacy is a cornerstone of your cinematic experience. This policy details how we collect, use, and protect your information as you discover movies, build watchlists, and stream trailers using our platform. By using CineMax, you consent to the practices described herein.</p>
+    </div>
+
+    <!-- 1. Information We Collect (mirrors app.js data) -->
+    <div class="privacy-section">
+      <h2><i class="fas fa-database"></i> 1. Information We Collect</h2>
+      <p>Based on your interaction with CineMax, we may collect the following categories of information:</p>
+      <ul>
+        <li><i class="fas fa-user"></i> <strong>Personal Information:</strong> If you register, we may collect your name and email address.</li>
+        <li><i class="fas fa-history"></i> <strong>Watch History & Preferences:</strong> Movies/TV shows you watch, search queries, and items added to your wishlist (stored locally).</li>
+        <li><i class="fas fa-mobile-alt"></i> <strong>Device & Usage Data:</strong> IP address, browser type, device identifiers, and interaction data (e.g., scroll, clicks).</li>
+        <li><i class="fas fa-cookie-bite"></i> <strong>Cookies & Local Storage:</strong> We use localStorage to remember your wishlist, continue-watching progress, and cache movie data for faster loading (as implemented in <code>app.js</code>).</li>
+        <li><i class="fas fa-server"></i> <strong>Performance Data:</strong> Anonymous latency measurements for our streaming servers to provide you with the fastest playback (server latency checks).</li>
+      </ul>
+      <p><span class="highlight-badge"><i class="fas fa-info-circle"></i> All data is collected to personalize your experience and improve platform performance.</span></p>
+    </div>
+
+    <!-- 2. How We Use Your Information (derived from app.js functions) -->
+    <div class="privacy-section">
+      <h2><i class="fas fa-cogs"></i> 2. How We Use Your Information</h2>
+      <p>CineMax utilizes your data for the following purposes, directly reflected in our application logic:</p>
+      <ul>
+        <li><i class="fas fa-rocket"></i> <strong>Personalization:</strong> To power features like "Continue Watching," "AI Recommendations," and your personal wishlist.</li>
+        <li><i class="fas fa-chart-line"></i> <strong>Analytics & Optimization:</strong> To understand which content is popular, optimize server selection (fastest server detection), and improve caching strategies.</li>
+        <li><i class="fas fa-bolt"></i> <strong>Service Delivery:</strong> To stream trailers, display movie posters, and fetch metadata from TMDB based on your searches.</li>
+        <li><i class="fas fa-shield-alt"></i> <strong>Security:</strong> To monitor for unauthorized access and ensure the integrity of our platform.</li>
+      </ul>
+      <p><strong>We do not sell your personal information to third parties.</strong> Data stored locally (wishlist, watch history) remains on your device unless you choose to share it.</p>
+    </div>
+
+    <!-- 3. Third-Party Services (based on app.js integrations) -->
+    <div class="privacy-section">
+      <h2><i class="fas fa-handshake"></i> 3. Third-Party Services</h2>
+      <p>CineMax integrates with the following third-party services to deliver content:</p>
+      <ul>
+        <li><i class="fas fa-film"></i> <strong>The Movie Database (TMDB):</strong> We fetch movie metadata, posters, trailers, and ratings using their API. Your searches and requests are sent to TMDB; their <a href="#" style="color: var(--primary);">privacy policy</a> applies to those transmissions.</li>
+        <li><i class="fas fa-play-circle"></i> <strong>Streaming Servers (Vidlux):</strong> When you play a movie or episode, your request is routed through our server selection logic to third-party streaming hosts. These services may collect viewing data according to their own policies.</li>
+        <li><i class="fab fa-youtube"></i> <strong>YouTube (for trailers):</strong> Trailers are embedded via YouTube; Google’s privacy policy governs your interaction with those players.</li>
+        <li><i class="fas fa-chart-bar"></i> <strong>Analytics:</strong> We may use aggregated, anonymized analytics to understand platform usage; no personal data is shared.</li>
+      </ul>
+      <p>CineMax is not responsible for the privacy practices of these third parties. We encourage you to review their policies.</p>
+    </div>
+
+    <!-- 4. Local Storage & Cookies (explicitly mentioned in app.js) -->
+    <div class="privacy-section">
+      <h2><i class="fas fa-sd-card"></i> 4. Local Storage & Cookies</h2>
+      <p>Our application uses your browser's <code>localStorage</code> to save:</p>
+      <ul>
+        <li><i class="fas fa-heart"></i> Your wishlist (<code>cinemax_wishlist</code>)</li>
+        <li><i class="fas fa-play-circle"></i> Continue-watching progress (<code>cinemax_continue_watching</code>)</li>
+        <li><i class="fas fa-clock"></i> Watch history (<code>cinemax_watch_history</code>)</li>
+        <li><i class="fas fa-archive"></i> Cached movie data (<code>cinemax_cache</code>) to reduce API calls and speed up browsing</li>
+        <li><i class="fas fa-tag"></i> "New content" markers (<code>cinemax_new_content</code>)</li>
+      </ul>
+      <p>This data stays on your device and is never automatically transmitted to our servers. You can clear it at any time via your browser settings. No tracking cookies are used for cross-site advertising.</p>
+    </div>
+
+    <!-- 5. Data Retention -->
+    <div class="privacy-section">
+      <h2><i class="fas fa-clock"></i> 5. Data Retention</h2>
+      <p>We retain cached API data for up to one hour (configurable) to ensure fresh content. Your local wishlist and history are stored indefinitely on your device until you clear them. Server logs (if any) containing IP addresses are anonymized after 30 days.</p>
+    </div>
+
+    <!-- 6. Data Security -->
+    <div class="privacy-section">
+      <h2><i class="fas fa-lock"></i> 6. Data Security</h2>
+      <p>We implement industry-standard measures, including HTTPS encryption and input sanitization, to protect data in transit. However, no method of transmission over the internet is 100% secure. You acknowledge that you use CineMax at your own risk.</p>
+    </div>
+
+    <!-- 7. Your Rights (GDPR/CCPA aligned) -->
+    <div class="privacy-section">
+      <h2><i class="fas fa-user-check"></i> 7. Your Rights & Choices</h2>
+      <p>Depending on your jurisdiction, you may have the right to:</p>
+      <ul>
+        <li><i class="fas fa-eye"></i> Access the personal data we hold about you.</li>
+        <li><i class="fas fa-trash-alt"></i> Request deletion of your locally stored data (you can clear browser storage).</li>
+        <li><i class="fas fa-toggle-off"></i> Opt out of any future data collection (by ceasing use of the platform).</li>
+      </ul>
+      <p>Since most data is stored locally, you have direct control via your browser's developer tools. For any server-side data inquiries, please contact us.</p>
+    </div>
+
+    <!-- 8. Children's Privacy -->
+    <div class="privacy-section">
+      <h2><i class="fas fa-child"></i> 8. Children's Privacy</h2>
+      <p>CineMax is not directed at children under 13. We do not knowingly collect personal information from children. If you believe a child has provided us with data, please contact us so we can remove it.</p>
+    </div>
+
+    <!-- 9. Changes to This Policy -->
+    <div class="privacy-section">
+      <h2><i class="fas fa-sync-alt"></i> 9. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy to reflect changes in our practices or for legal reasons. The "Last Updated" date at the top of this page will be revised. Continued use of CineMax after changes constitutes acceptance.</p>
+    </div>
+
+    <!-- 10. Contact Information -->
+    <div class="signature-block">
+      <i class="fas fa-envelope-open-text" style="font-size: 4rem; color: var(--primary); margin-bottom: 1rem; filter: drop-shadow(0 0 20px var(--primary));"></i>
+      <h2 style="color: white; margin-bottom: 1.5rem; border: none; padding-left: 0;">10. Contact Us</h2>
+      <p>If you have questions about this Privacy Policy or wish to exercise your data rights, please reach out:</p>
+      <div class="glass-pill" style="margin-top: 1.5rem; padding: 0.8rem 2rem;">
+        <i class="fas fa-arrow-right" style="color: var(--primary); margin-right: 8px;"></i> privacy@cinemax.example
+      </div>
+      <div style="margin-top: 1rem;">
+        <p style="font-size: 1rem;">or use the <strong>Contact</strong> link in our footer.</p>
+      </div>
+      <div class="signature-line" style="margin-top: 2rem;">CineMax</div>
+      <div style="margin-top: 1rem; font-size: 1.2rem; opacity: 0.9;">Created by <strong style="color: white;">IBRAHIM AHMED</strong></div>
+    </div>
+
+    <!-- footer with links (consistent with app.js) -->
+    <div class="legal-footer">
+      <div>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
+      <div style="display: flex; gap: 1.5rem;">
+        <i class="fab fa-instagram" style="font-size: 1.5rem; opacity: 0.7; transition: 0.2s; cursor: default;"></i>
+        <i class="fab fa-x-twitter" style="font-size: 1.5rem; opacity: 0.7;"></i>
+        <i class="fab fa-youtube" style="font-size: 1.5rem; opacity: 0.7;"></i>
+      </div>
+    </div>
+
+    <!-- design credit -->
+    <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #3f5568;">
+      <i class="fas fa-crown" style="color: #ffcc80;"></i> your privacy, our commitment · CineMax
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      console.log('CineMax Privacy Policy · aligned with app.js data practices · IBRAHIM AHMED');
+    })();
+  </script>
+</body>
+</html>
